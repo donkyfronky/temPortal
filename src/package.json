@@ -1,0 +1,25 @@
+{
+  "name": "app2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm install && node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "1.0.1",
+    "express": "4.0.0",
+    "express-prettify": "0.0.10",
+    "ioc-js": "0.0.4",
+    "mongoose": "5.0.13",
+    "node-dht-sensor": "0.0.34",
+    "redis": "2.8.0",
+    "redis-commands": "1.3.5",
+    "then-redis": "2.0.1"
+  },
+  "dependencies-dev": {
+    "express-redis": "2.0.0"
+  }
+}
