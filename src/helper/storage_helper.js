@@ -15,16 +15,15 @@ class storage_helper{
         return this.base_label;
     }
     setBaseLabel(){
-        this.findBaseLabel()
+       return this.findBaseLabel()
             .then(result_label=>{
 
                 if(result_label ===null ){
-
+                    console.log('Storage is empty by labels');
                     this.base_label = new Label(this.uuidv4(),new Date());
                     this.save(this.base_label);
-                    return this.base_label.getLabel();
+                    return Promise.resolve(this.base_label.getLabel());
                 }else {
-
 
                     let last_label = result_label;
 
@@ -33,15 +32,14 @@ class storage_helper{
 
 
                             if (!(last_nowDate.setHours(0,0,0,0) == nowDate.setHours(0,0,0,0))) {
-
+                                console.log('Update, the label is expired');
                                 this.base_label = new Label(this.uuidv4(), new Date());
                                 this.save(this.base_label);
-                                return this.base_label.getLabel();
+                                return Promise.resolve(this.base_label.getLabel());
                             } else {
-
                                 this.base_label = new Label(last_label.label, last_label.date);
 
-                                return this.base_label.getLabel();
+                                return Promise.resolve(this.base_label.getLabel());
                             }
                 }});
     }

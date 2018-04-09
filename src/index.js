@@ -4,8 +4,7 @@ app        = express(),
 bodyParser = require('body-parser'),
 service = require('./service'),
 Sample = require('./model/Sample'),
-threshold_toswitch_label = 5;
-
+trend_interval = 10; //sec
 
 //let t = new Temperature(2);
 //storage.save(t);
@@ -16,7 +15,11 @@ storage.lpush('ranges',last_label);
 console.log('created label: '+last_label);*/
 
 let storage = service.resolve('storageHelper')
-storage.setBaseLabel();
+storage.setBaseLabel()
+    .then(()=>{
+        setInterval(()=>{storage.setBaseLabel()}, (trend_interval*1000)/2);
+        setInterval(()=>{service.resolve('thermPortalEvent').emit('check-sensor');}, (trend_interval*1000));
+    });
 
 //app.set('json spaces', 2),
 /**Middleware**/
@@ -48,14 +51,17 @@ app.use('/', router);
 app.listen(port);
 console.log('server on port ' + port);
 
-setInterval(function() {
+service.resolve('thermPortalEvent').on('check-sensor', () => {
+    console.log('check sensor');
+    checkSensor();
+});
+
+function checkSensor(){
     let sensor = service.resolve('sensor');
     sensor.read();
     let t = new Sample(sensor.getTemperature(),sensor.getHumidity(),new Date().toISOString());
     storage.save(t);
-}, 30000);
-
-
+}
 /**
  * manca la gestione del cambio label ogni 24h  ((new Date() - new Date('2018-04-06 11:01:00'))/(3600*1000) > 24)
  *
