@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Hello, world!</title>
+</head>
+<body>
+    <div class="row">
+        <div class="col-9">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Temperature/Humidity Graph</h5>
+                    <select id="ranges">
+                    </select>
+                    <canvas id="myfirstchart" style="height: 250px;"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-3">
+                <div class="alert alert-success" role="alert">
+                    <h4 class="alert-heading"><i class="fa fa-chevron-circle-down fa-2x" aria-hidden="true"></i> &nbsp; <span id="right-now" >0.00</span>° C</h4>
+                    <p>right now</p>
+                </div>
+            <div class="alert alert-danger" role="alert">
+                <h4 class="alert-heading"><i class="fa fa-arrow-circle-o-up fa-2x" aria-hidden="true"></i> &nbsp; <span id="max" >0.00</span>° C</h4>
+                <p>the highest</p>
+            </div>
+            <div class="alert alert-info" role="alert">
+                <h4 class="alert-heading"><i class="fa fa-arrow-circle-o-down fa-2x" aria-hidden="true"></i> &nbsp; <span id="min" >0.00</span>° C</h4>
+                <p>the lower</p>
+            </div>
+        </div>
+</div>
+    <script src="/js/app.bundle.js"></script>
+</body>
+</html>
