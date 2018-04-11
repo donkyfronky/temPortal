@@ -4,6 +4,7 @@ class Sample {
         this.temperature = temperature;
         this.humidity = humidity;
         this.date = date;
+        console.log(this.temperature,this.humidity,this.date);
     }
 
     getTemperature(){

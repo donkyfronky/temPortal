@@ -29,7 +29,7 @@ window.lineChartData = {
         backgroundColor: window.chartColors.blue,
         fill: false,
         data: [],
-        yAxisID: 'y-axis-1'
+        yAxisID: 'y-axis-2'
     }]
 };
 
@@ -50,8 +50,17 @@ window.lineChartData = {
                     display: true,
                     position: 'left',
                     id: 'y-axis-1',
-                },
-                ],
+                }, {
+                    type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+                    display: true,
+                    position: 'right',
+                    id: 'y-axis-2',
+
+                    // grid line settings
+                    gridLines: {
+                        drawOnChartArea: false, // only want the grid lines for one axis to show up
+                    },
+                }],
             }
         }
     });
@@ -93,7 +102,11 @@ utils.loadRanges().then(last=>{
     updateDivCounter(counter);
 
     setInterval(()=>{
-        countDown(()=>{utils.updateDataAndGraph(last)})
+        countDown(()=>{
+            let select = document.getElementById('ranges');
+            let selectedElement = select.options[select.selectedIndex];
+            utils.updateDataAndGraph(last)
+        })
     },1000);
 });
 
