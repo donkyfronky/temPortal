@@ -7,15 +7,23 @@ const config = {
     entry: {
         app: './index.js'
     },
+    /*optimization: {
+        splitChunks: {
+            cacheGroups: {
+                commons: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: "vendor",
+                    chunks: "initial",
+                },
+            },
+        },
+    },*/
     output: {
         path: path.resolve(__dirname, './'),
+        chunkFilename: './public/js/[name].bundle.chunk.js',
         filename: './public/js/[name].bundle.js'
     },
     plugins: [
-        new webpack.ProvidePlugin({
-            $: 'jquery',
-            jQuery: 'jquery'
-        })
     ]
 }
 
