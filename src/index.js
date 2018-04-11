@@ -49,13 +49,29 @@ router.get('/range/date/:range/', service.resolve('rangesController').getRange);
 /**group route**/
 app.use('/', router);
 
-app.listen(port);
+//app.listen(port);
+
+var io = require('socket.io').listen(app.listen(port));//Telling Express+Socket.io App To Listen To Port
+io.sockets.on("connection",function(socket){
+    socket.emit("Start_Chat");
+})
 console.log('server on port ' + port);
 
 service.resolve('thermPortalEvent').on('check-sensor', () => {
     console.log('check sensor');
     checkSensor();
 });
+
+
+
+io.sockets.on("connection",function(socket){
+    socket.emit("Start_Chat");
+})
+//For Tracking When User Disconnects:
+io.sockets.on("disconnect",function(socket){
+//var socket is the socket for the client who has disconnected.
+})
+
 
 function checkSensor(){
     let sensor = service.resolve('sensor');

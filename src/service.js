@@ -21,7 +21,7 @@ builder
     })
     .register('storage', function() {
         let createClient = require('then-redis').createClient;
-        let db = createClient('tcp://notificheredis:6379');
+        let db = createClient('tcp://redis:6379');
         db.select('3');
         return db;
     })

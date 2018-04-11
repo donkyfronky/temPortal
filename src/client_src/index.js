@@ -1,6 +1,13 @@
 var Chart = require('chart.js');
 import wretch from "wretch"
 import * as utils from './util';
+import io from 'socket.io-client'
+
+var socket = io.connect(window.location.host);
+socket.on("Start_Chat",function(e){
+    console.log(e)
+})
+
 
 window.chartColors = {
     red: 'rgb(255, 99, 132)',
