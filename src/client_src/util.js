@@ -41,6 +41,15 @@ function loadRanges(){
             }
         );
 }
+
+function updateDataOfGraph(sample){
+    console.log('push value to graph',sample);
+    let d = new Date(sample.date);
+    window.lineChartData.datasets[0].data.push(parseFloat(sample.temperature));
+    window.lineChartData.datasets[1].data.push(parseFloat(sample.humidity));
+    window.lineChartData.labels.push(d.getHours()+':'+d.getMinutes()+':'+d.getSeconds())
+    window.ThermChart.update();
+}
 function updateDataAndGraph(label){
     let temperatures,
         humidities,
@@ -83,4 +92,4 @@ function updateDataAndGraph(label){
         })
 }
 
-export {setTheHigh,setTheLow,setTheNow,loadRanges,setBoxSummary,updateDataAndGraph}
+export {setTheHigh,setTheLow,setTheNow,loadRanges,setBoxSummary,updateDataAndGraph,updateDataOfGraph}

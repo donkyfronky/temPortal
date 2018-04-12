@@ -4,9 +4,13 @@ import * as utils from './util';
 import io from 'socket.io-client'
 
 var socket = io.connect(window.location.host);
-socket.on("Start_Chat",function(e){
-    console.log(e)
+socket.on("Start_Chart",function(e){
+    document.getElementById('timer').innerText = e;
 })
+
+socket.on('sensor-checked',(e)=>{
+utils.updateDataOfGraph(e)
+});
 
 
 window.chartColors = {
@@ -65,7 +69,7 @@ window.lineChartData = {
 
                     // grid line settings
                     gridLines: {
-                        drawOnChartArea: false, // only want the grid lines for one axis to show up
+                        drawOnChartArea: true, // only want the grid lines for one axis to show up
                     },
                 }],
             }
@@ -90,31 +94,6 @@ window.onload = function() {
 
 utils.loadRanges().then(last=>{
     utils.updateDataAndGraph(last)
-
-    var failTime = 15,      //Refresh time when no connection
-        counter;            //Holds the count number (Seconds)
-
-    function countDown(cb){
-
-        if(counter == 0){
-            counter = failTime;
-            cb();
-        }else{
-            counter--;
-        }
-        updateDivCounter(counter);
-    }
-
-    counter = failTime;
-    updateDivCounter(counter);
-
-    setInterval(()=>{
-        countDown(()=>{
-            let select = document.getElementById('ranges');
-            let selectedElement = select.options[select.selectedIndex];
-            utils.updateDataAndGraph(last)
-        })
-    },1000);
 });
 
 };
